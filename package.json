@@ -1,0 +1,17 @@
+{
+  "name": "lego-tools",
+  "version": "0.0.4",
+  "description": "use tools like lego.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "lego",
+    "tools",
+    "times",
+    "date"
+  ],
+  "author": "rex_mark",
+  "license": "ISC"
+}
