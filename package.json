@@ -6,12 +6,24 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rex-mark/lego-tools.git"
+  },
   "keywords": [
     "lego",
     "tools",
     "times",
-    "date"
+    "date",
+    "object"
   ],
   "author": "rex_mark",
-  "license": "ISC"
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rex-mark/lego-tools/issues"
+  },
+  "homepage": "https://github.com/rex-mark/lego-tools#readme",
+  "devDependencies": {
+    "chai": "^4.2.0"
+  }
 }

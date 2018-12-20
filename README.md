@@ -1,7 +1,6 @@
 # lego-tools
-![npm version]
-(https://img.shields.io/badge/npm-v0.0.4-green.svg)
-
+![npm version](https://img.shields.io/badge/npm-v0.0.4-green.svg)
+![build status](https://img.shields.io/badge/build-passing-brightgreen.svg)
 The tools library, now is support date and object.
 
 ## Install
@@ -34,5 +33,6 @@ const date9 = LT.date.diff('2018-12-20 12:29:30', '2018-11-10 12:19:20')//=> {da
 //===========================obj tool============================================
 let data = { detail: {name: 'Tom', age: 21, address: {home: 'unknow'}} }
 let obj1 = LT.obj.deepGet(data, 'detail.address.home')//=> unknow
+let obj1 = LT.obj.deepSet(data, 'detail.address.home', 'test')//=> {...home:'test'}
 let obj2 = LT.obj.copy(data)//=> data
 ```
