@@ -20,8 +20,9 @@ const polyFun = {
 
 /**
  * change date to trarget format
- * @param {*} date - date object
- * @param {*} targetFormat - yyyy-MM-dd HH:mm:ss
+ * @param {Date|string} date - date object
+ * @param {tring} targetFormat - yyyy-MM-dd HH:mm:ss
+ * @return {string} string date
  */
 const format = (date, targetFormat) => {
     let tmpDate = polyFun.setStringDate(date)
@@ -36,11 +37,12 @@ const format = (date, targetFormat) => {
 }
 
 /**
- * 
- * @param {*} date 
- * @param {*} num 
- * @param {*} type - years, months, days, hours, minutes, seconds
- * @param {*} sourceFormat - format
+ * add target num to date
+ * @param {Date|string} date 
+ * @param {number} num 
+ * @param {string} type - years, months, days, hours, minutes, seconds
+ * @param {string} sourceFormat -(AllowNull) format
+ * @return {Date|string} 
  */
 const add = (date, num, type, sourceFormat) => {
     let tmpDate = polyFun.setStringDate(date)
@@ -50,11 +52,12 @@ const add = (date, num, type, sourceFormat) => {
 }
 
 /**
- * 
- * @param {*} date 
- * @param {*} num 
- * @param {*} type - years, months, days, hours, minutes, seconds
- * @param {*} sourceFormat - format
+ * subtract target num to date
+ * @param {Date|string} date 
+ * @param {number} num 
+ * @param {string} type - years, months, days, hours, minutes, seconds
+ * @param {string} sourceFormat -(AllowNull) format
+ * @return {Date|string}
  */
 const subtract = (date, num, type, sourceFormat) => {
     let tmpDate = polyFun.setStringDate(date)
@@ -65,7 +68,8 @@ const subtract = (date, num, type, sourceFormat) => {
 
 /**
  * get current date
- * @param {*} targetFormat - return the format date string
+ * @param {string} targetFormat -(AllowNull) date format
+ * @return {Date|string}
  */
 const now = (targetFormat) => {
     let date = new Date()

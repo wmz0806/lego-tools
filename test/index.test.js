@@ -1,0 +1,1 @@
+const LT = require('../index')

@@ -1,6 +1,6 @@
 {
   "name": "lego-tools",
-  "version": "0.0.5",
+  "version": "0.0.51",
   "description": "use tools like lego.",
   "main": "index.js",
   "scripts": {

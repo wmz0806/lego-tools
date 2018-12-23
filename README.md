@@ -1,6 +1,9 @@
 # lego-tools
-![npm version](https://img.shields.io/badge/npm-v0.0.4-green.svg)
+![npm version](https://img.shields.io/badge/npm-v0.0.51-green.svg)
 ![build status](https://img.shields.io/badge/build-passing-brightgreen.svg)
+![coverage](https://img.shields.io/badge/coverage-90%25-yellowgreen.svg)
+![license](https://img.shields.io/badge/license-MIT-green.svg)
+
 The tools library, now is support date and object.
 
 ## Install
@@ -12,7 +15,13 @@ npm install --save lego-tools
 ```
 const legoTools = require('lego-tools')//OR lego-tools/date
 
-//and i like to call it LT.
+//[new update, form example: u can filter the array like it.]
+let data = [
+    {name: 'Tom1', age: 23, detail: {address: 'test'}},
+    {name: 'Tom2', age: 21, detail: {address: 'test'}},
+]
+let result = LT.obj.deepGet(data, 'age>=22&&detail.address=="test"')//=> [{...}]
+
 //===========================date tool============================================
 const date1 = LT.date.now()// => date object
 const date2 = LT.date.now('yyyy-MM-dd HH:mm:ss')//=> 2018-12-20 01:28:25
