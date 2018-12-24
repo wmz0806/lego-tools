@@ -1,3 +1,115 @@
+//author: @camsong
+const common = {
+    digitLength: num => {
+        const eSplit = num.toString().split(/[eE]/);
+        const len = (eSplit[0].split('.')[1] || '').length - (+(eSplit[1] || 0));
+        return len > 0 ? len : 0;
+    },
+    float2Fixed: num => {
+        if (num.toString().indexOf('e') === -1) {
+            return Number(num.toString().replace('.', ''));
+        }
+        const dLen = common.digitLength(num);
+        return dLen > 0 ? num * Math.pow(10, dLen) : num;
+    },
+    checkBoundary: num => {
+        if (num > Number.MAX_SAFE_INTEGER || num < Number.MIN_SAFE_INTEGER) {
+            console.warn(`${num} is beyond boundary when transfer to integer, the results may not be accurate`);
+        }
+    },
+    times: (num1, num2, ...others) => {
+        if (others.length > 0) {
+            return common.times(common.times(num1, num2), others[0], ...others.slice(1));
+        }
+        const num1Changed = common.float2Fixed(num1);
+        const num2Changed = common.float2Fixed(num2);
+        const baseNum = common.digitLength(num1) + common.digitLength(num2);
+        const leftValue = num1Changed * num2Changed;
+    
+        common.checkBoundary(leftValue);
+    
+        return leftValue / Math.pow(10, baseNum);
+    },
+    plus: (num1, num2, ...others) => {
+        if (others.length > 0) {
+            return common.plus(common.plus(num1, num2), others[0], ...others.slice(1));
+        }
+        const baseNum = Math.pow(10, Math.max(common.digitLength(num1), common.digitLength(num2)));
+        return (common.times(num1, baseNum) + common.times(num2, baseNum)) / baseNum;
+    },
+    minus: (num1, num2, ...others) => {
+        if (others.length > 0) {
+            return common.minus(common.minus(num1, num2), others[0], ...others.slice(1));
+        }
+        const baseNum = Math.pow(10, Math.max(common.digitLength(num1), common.digitLength(num2)));
+        return (common.times(num1, baseNum) - common.times(num2, baseNum)) / baseNum;
+    },
+    div: (num1, num2, ...others) => {
+        if (others.length > 0) {
+            return common.div(common.div(num1, num2), others[0], ...others.slice(1));
+        }
+        const num1Changed = common.float2Fixed(num1);
+        const num2Changed = common.float2Fixed(num2);
+        common.checkBoundary(num1Changed);
+        common.checkBoundary(num2Changed);
+        return common.times((num1Changed / num2Changed), Math.pow(10, common.digitLength(num2) - common.digitLength(num1)));
+    }
+}
+
+/**
+ * support js to compute the times,div,plus,minus
+ * @param {String} computeStr - 39.9\*3-(2/5)+3\*6
+ * @return {String}
+ */
+const compute = computeStr => {
+    let matchOperator = (tmpStr, computeValue) => {
+        tmpStr = tmpStr.replace('(', '').replace(')', '')
+
+        if(tmpStr.indexOf('*') > 0 || tmpStr.indexOf('/') > 0) {
+            let operatorReg = /([0-9.]+)[\*\/]([0-9.]+)/
+            let tmpValue = tmpStr.match(operatorReg)
+            let str = tmpValue[0]
+            let value = ''
+            if(str.indexOf('*') > 0) {
+                let list = str.split('*')
+                value = common.times(list[0], list[1])
+            }else if(str.indexOf('/') > 0){
+                let list = str.split('/')
+                value = common.div(list[0], list[1])
+            }
+            tmpStr = tmpStr.replace(str, value)
+            return matchOperator(tmpStr, value)
+        }else if(tmpStr.indexOf('+') > 0 || tmpStr.indexOf('-') > 0){
+            let operatorReg = /([0-9.]+)[\+\-]([0-9.]+)/
+            let tmpValue = tmpStr.match(operatorReg)
+            let str = tmpValue[0]
+            let value = ''
+            if(str.indexOf('+') > 0) {
+                let list = str.split('+')
+                value = common.plus(list[0], list[1])
+            }else if(str.indexOf('-') > 0){
+                let list = str.split('-')
+                value = common.minus(list[0], list[1])
+            }
+            tmpStr = tmpStr.replace(str, value)
+            return matchOperator(tmpStr, value)
+        }else{
+            return computeValue
+        }
+    }
+
+    //compute the bracket
+    let bracketReg = /\(([^)]*)\)/g
+    let bracketValue = computeStr.match(bracketReg)
+    if(bracketValue && bracketValue.length) {
+        bracketValue.forEach(item => {
+            computeStr = computeStr.replace(item, matchOperator(item))
+        })
+    }
+
+    return matchOperator(computeStr) + ''
+}
+
 /**
  * 
  * @param {String|Number} num 
@@ -42,4 +154,5 @@ const formatMoney = (num, targetFormat, mathType) => {
 module.exports = {
     format,
     formatMoney,
+    compute,
 }

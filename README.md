@@ -1,5 +1,5 @@
 # lego-tools
-![npm version](https://img.shields.io/badge/npm-v0.0.6-green.svg)
+![npm version](https://img.shields.io/badge/npm-v0.0.7-green.svg)
 ![build status](https://img.shields.io/badge/build-passing-brightgreen.svg)
 ![coverage](https://img.shields.io/badge/coverage-90%25-yellowgreen.svg)
 ![license](https://img.shields.io/badge/license-MIT-green.svg)
@@ -14,6 +14,13 @@ npm install --save lego-tools
 ## Usage
 ```
 const legoTools = require('lego-tools')//OR lego-tools/date
+
+//===========================update to 0.0.6============================================
+//[support js to compute the times,div,plus,minus]
+LT.num.compute('39.9*3/2+10-3*2') //=> 63.85
+//===========================end============================================
+
+
 //===========================update to 0.0.6============================================
 //[add support to num and format money]
 let num = 1234567.789
