@@ -62,36 +62,36 @@ const common = {
  * @return {String}
  */
 const compute = computeStr => {
-    let matchOperator = (tmpStr, computeValue) => {
+    const operators = [
+        {operator: '*', fun: 'times'},
+        {operator: '/', fun: 'div'},
+        {operator: '+', fun: 'plus'},
+        {operator: '-', fun: 'minus'},
+    ]
+    const matchOperator = (tmpStr, computeValue) => {
         tmpStr = tmpStr.replace('(', '').replace(')', '')
+        let value = null
+        const start = (regStr) => {
+            const reg = new RegExp(`([0-9.]+)[${regStr}]([0-9.]+)`)
+            let str = tmpStr.match(reg)[0]
+            let targetOperator = {}
+            for(let i=0; i<operators.length; i++) {
+                if(str.indexOf(operators[i].operator) > 0) {
+                    targetOperator = operators[i]
+                    break
+                }
+            }
+
+            const list = str.split(targetOperator.operator)
+            value = common[targetOperator.fun](list[0], list[1])
+            tmpStr = tmpStr.replace(str, value)
+        }
 
         if(tmpStr.indexOf('*') > 0 || tmpStr.indexOf('/') > 0) {
-            let operatorReg = /([0-9.]+)[\*\/]([0-9.]+)/
-            let tmpValue = tmpStr.match(operatorReg)
-            let str = tmpValue[0]
-            let value = ''
-            if(str.indexOf('*') > 0) {
-                let list = str.split('*')
-                value = common.times(list[0], list[1])
-            }else if(str.indexOf('/') > 0){
-                let list = str.split('/')
-                value = common.div(list[0], list[1])
-            }
-            tmpStr = tmpStr.replace(str, value)
+            start('\*\/')
             return matchOperator(tmpStr, value)
         }else if(tmpStr.indexOf('+') > 0 || tmpStr.indexOf('-') > 0){
-            let operatorReg = /([0-9.]+)[\+\-]([0-9.]+)/
-            let tmpValue = tmpStr.match(operatorReg)
-            let str = tmpValue[0]
-            let value = ''
-            if(str.indexOf('+') > 0) {
-                let list = str.split('+')
-                value = common.plus(list[0], list[1])
-            }else if(str.indexOf('-') > 0){
-                let list = str.split('-')
-                value = common.minus(list[0], list[1])
-            }
-            tmpStr = tmpStr.replace(str, value)
+            start('\\+\\-')
             return matchOperator(tmpStr, value)
         }else{
             return computeValue
@@ -99,8 +99,8 @@ const compute = computeStr => {
     }
 
     //compute the bracket
-    let bracketReg = /\(([^)]*)\)/g
-    let bracketValue = computeStr.match(bracketReg)
+    const bracketReg = /\(([^)]*)\)/g
+    const bracketValue = computeStr.match(bracketReg)
     if(bracketValue && bracketValue.length) {
         bracketValue.forEach(item => {
             computeStr = computeStr.replace(item, matchOperator(item))

@@ -4,7 +4,8 @@
   "description": "use tools like lego.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "parcel build index.js -d dist/0.0.7/ --out-file lego-tools.min.js"
   },
   "repository": {
     "type": "git",
@@ -15,7 +16,8 @@
     "tools",
     "times",
     "date",
-    "object"
+    "object",
+    "number"
   ],
   "author": "rex_mark",
   "license": "MIT",
@@ -24,6 +26,9 @@
   },
   "homepage": "https://github.com/rex-mark/lego-tools#readme",
   "devDependencies": {
-    "chai": "^4.2.0"
+    "@babel/core": "^7.2.2",
+    "babel-preset-preact": "^1.1.0",
+    "chai": "^4.2.0",
+    "parcel-bundler": "^1.11.0"
   }
 }
