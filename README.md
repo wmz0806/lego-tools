@@ -1,5 +1,5 @@
 # lego-tools
-![npm version](https://img.shields.io/badge/npm-v0.0.8-green.svg)
+![npm version](https://img.shields.io/badge/npm-v0.1.0-green.svg)
 ![build status](https://img.shields.io/badge/build-passing-brightgreen.svg)
 ![coverage](https://img.shields.io/badge/coverage-90%25-yellowgreen.svg)
 ![license](https://img.shields.io/badge/license-MIT-green.svg)
@@ -12,61 +12,75 @@ npm install --save lego-tools
 ```
 
 ## Usage
+### #num
+* use: support js to compute the times,div,plus,minus
+* function: compute(computeStr:string)
+* params: `computeStr - like -> (2+5)\*3+(39.9\*3)\2 -> 80.85`
+* return: number
+* example: `LT.num.compute('(2+5)\*3+(39.9\*3)\2')`
+---
+* use: format the num like round,ceil,floor
+* function: format(num:string|number, targetFormat:string, type:string)
+* params: `num:12.34,'12.34' | targetFormat:'.','.0','.00'... and more | type:'round','ceil','floor'`
+* return: source num type
+* example: `LT.num.format(12.34, '.0', 'round') => 12.3`
+---
+* use: format the num like money show
+* function: formatMoney(num:string|number, targetFormat:string(NULL), type:string(NULL))
+* params: `num:1234.34,'1234.34' | targetFormat:'.','.0','.00'... and more | type:'round','ceil','floor'`
+* return: string
+* example: `LT.num.formatMoney(1234.34) => 1,234.34`
+---
+
+### #obj
+* use: get value or list from object/array
+* function: deepGet(data:object|array, keyStr)
+* params: `data | keyStr:object -> 'detail.name.version' / array -> 'detail.age>5&sex="man"'`
+* return: target vlaue/array
+* example: `LT.obj.deepGet({detail: {name: 'Tom'}}, 'detail.name') => Tom`
+---
+* use: set the target object
+* function: deepSet(data:object, keyStr, vlaue:any)
+* params: `date | keyStr: 'detail.name.version' | value
+* return: target object
+* example: `LT.obj.deepSet({detail: {name: 'Tom'}}, 'detail.age', 10) => {detail: {name: 'Tom', age: 10}}`
+---
+
+### #date
+* use: get current date
+* function: now(targetFormat(NULL))
+* params: `targetFormat:yyyy-MM-dd HH:mm:ss`
+* return: date|string
+* example: `LT.date.now() => Date; LT.date.now('yyyy-MM-dd') => 2018-12-20`
+---
+* use: format target date/dateStr
+* function: format(date:string|date, targetFormat)
+* params: `targetFormat:yyyy-MM-dd HH:mm:ss`
+* return: string
+* example: `LT.date.format(new Date()|'2018-12-20 13:59:30', 'yyyy-MM-dd') //=> 2018-12-20`
+---
+* use: add years,months,days,hours,minutes,second to date
+* function: add(date:string|date, num:number, type:string, targetFormat:string)
+* params: `type:years,months,days,hours,minutes,second | targetFormat:yyyy-MM-dd HH:mm:ss`
+* return: source date type
+* example: `LT.date.add('2018-12-20 12:29:30'|new Date(), 1, 'months', 'yyyy-MM-dd HH:mm:ss') => 2019-01-20 12:29:30`
+---
+* use: subtract years,months,days,hours,minutes,second from date
+* function: subtract(date:string|date, num:number, type:string, targetFormat:string(NULL))
+* params: `type:years,months,days,hours,minutes,second | targetFormat:yyyy-MM-dd HH:mm:ss`
+* return: source date type
+* example: `LT.date.subtract('2018-12-20 12:29:30'|new Date(), 1, 'months', 'yyyy-MM-dd HH:mm:ss') => 2018-11-20 12:29:30`
+---
+* use: diff two date
+* function: diff(date:string|date, date:string|date)
+* params: `date`
+* return: object - {days: number, hours: number, minutes: number, seconds: number}
+* example: `LT.date.diff('2018-12-20 12:29:30', '2018-12-18 12:29:30') => {days: 2, hours: 0, minutes: 0, seconds: 0}`
+---
+
+use in code:
 ```
-const legoTools = require('lego-tools')//OR lego-tools/date
-
-//===========================update to 0.0.6============================================
-//[support js to compute the times,div,plus,minus]
-LT.num.compute('39.9*3/2+10-3*2') //=> 63.85
-//===========================end============================================
-
-
-//===========================update to 0.0.6============================================
-//[add support to num and format money]
-let num = 1234567.789
-LT.num.format(num, '.00', 'round') //=> 1234567.79
-LT.num.format(num, '.', 'round') //=> 1234568
-LT.num.formatMoney(num) //=> 1，234，567.789
-LT.num.formatMoney(num, '.00', 'round') //=> 1，234，567.79
-//===========================end============================================
-
-
-//===========================update to 0.0.51============================================
-//[new update, form example: u can filter the array like it.]
-let data = [
-    {name: 'Tom1', age: 23, detail: {address: 'test'}},
-    {name: 'Tom2', age: 21, detail: {address: 'test'}},
-]
-LT.obj.deepGet(data, 'age>=22&&detail.address=="test"') //=> [{...}]
-
-//===========================end============================================
-
-
-//===========================date tool start============================================
-
-LT.date.now() // => date object
-LT.date.now('yyyy-MM-dd HH:mm:ss') //=> 2018-12-20 01:28:25
-
-//format date
-LT.date.format(new Date(), 'yyyy-MM-dd') //=> 2018-12-20
-LT.date.format('2018-12-20 13:59:30' 'yyyy-MM-dd') //=> 2018-12-20
-
-//add or subtract,support years,months,days,hours,minutes,seconds
-LT.date.add('2018-12-20 12:29:30', 1, 'months', 'yyyy-MM-dd HH:mm:ss')
-LT.date.subtract('2018-12-20 12:29:30', 1, 'days', 'yyyy-MM-dd HH:mm:ss')
-LT.date.subtract(new Date(), 1, 'days', 'yyyy-MM-dd HH:mm:ss') //=> date string
-LT.date.subtract(new Date(), 1, 'days') //=> date object
-
-//date diff
-//=> {days: number, hours: number, minutes: number, seconds: number}
-LT.date.diff('2018-12-20 12:29:30', '2018-11-10 12:19:20')
-//===========================date tool end============================================
-
-
-//===========================obj tool start============================================
-let data = { detail: {name: 'Tom', age: 21, address: {home: 'unknow'}} }
-LT.obj.deepGet(data, 'detail.address.home') //=> unknow
-LT.obj.deepSet(data, 'detail.address.home', 'test') //=> {...home:'test'}
-LT.obj.copy(data) //=> data
-//===========================obj tool end============================================
+const LT = require('lego-tools')//OR lego-tools/date
+//todao
+...
 ```
