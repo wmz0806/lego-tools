@@ -59,7 +59,7 @@ const common = {
 /**
  * support js to compute the times,div,plus,minus
  * @param {String} computeStr - 39.9\*3-(2/5)+3\*6
- * @return {String}
+ * @return {number}
  */
 const compute = computeStr => {
     const operators = [
@@ -107,7 +107,7 @@ const compute = computeStr => {
         })
     }
 
-    return matchOperator(computeStr) + ''
+    return matchOperator(computeStr)
 }
 
 /**

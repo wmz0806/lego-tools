@@ -36,7 +36,7 @@ const deepGet = (obj, keyStr) => {//detail.age>=22&&(detail.name=Tom||detail.nam
         return resultList.length ? resultList : null
     }else{
         const keys = keyStr.split('.')
-        keys.forEach(key => { tmpObj = tmpObj.hasOwnProperty(key) ? tmpObj[key] : undefined })
+        keys.forEach(key => { tmpObj = (tmpObj && tmpObj.hasOwnProperty(key)) ? tmpObj[key] : undefined })
         return tmpObj
     }
 }
@@ -65,8 +65,49 @@ const deepSet = (obj, keyStr, value) => {
     return obj
 }
 
+/**
+ * sort array
+ * @param {Array} data 
+ * @param {string} express - desc/asc => detail.age:desc
+ * @return {array} data
+ */
+const sort = (data, express) => {
+    let start = (type, keyStr) => {
+        let preType = 1 * type
+        let afterType = -1 * type
+
+        if(keyStr) {
+            data.sort((a, b) => {
+                if(deepGet(a, keyStr) > deepGet(b, keyStr)) return preType
+                else return afterType
+            })
+        }else{
+            data.sort((a, b) => {
+                if(a > b) return preType
+                else return afterType
+            })
+        }
+    }
+    let sortType = null
+    let keyStr = null
+
+    if(express.indexOf(':') > 0) {
+        let expressList = express.split(':')
+        sortType = expressList[1]
+        keyStr = expressList[0]
+    }else{
+        sortType = express
+    }
+
+    if(sortType === 'asc') start(1, keyStr)
+    else if(sortType === 'desc') start(-1, keyStr)
+
+    return data
+}
+
 module.exports = {
     copy,
     deepGet,
     deepSet,
+    sort,
 }
