@@ -24,4 +24,16 @@ describe('obj', () => {
         let data = { detail: {name: 'Tom', age: 21, address: {home: 0}} }
         expect(obj.copy(data)).to.be.a('object')
     })
+
+    it('sort deepGet', () => {
+        let data = [{detail: {age:1}}, {detail: {age:7}}, {detail: {age:3}}]
+        data = obj.sort(data, 'detail.age:desc')
+        expect(data[0].detail.age).to.be.equal(7)
+    })
+
+    it('sort array', () => {
+        let data = [{age:1}, {age:7}, {age:3}]
+        data = obj.sort(data, 'age:desc')
+        expect(data[0].age).to.be.equal(7)
+    })
 })

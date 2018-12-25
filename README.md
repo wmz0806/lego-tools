@@ -1,7 +1,7 @@
 # lego-tools
 ![npm version](https://img.shields.io/badge/npm-v0.1.1-green.svg)
 ![build status](https://img.shields.io/badge/build-passing-brightgreen.svg)
-![coverage](https://img.shields.io/badge/coverage-90%25-yellowgreen.svg)
+![coverage](https://img.shields.io/badge/coverage-95%25-yellowgreen.svg)
 ![license](https://img.shields.io/badge/license-MIT-green.svg)
 
 The tools library, now is support date|object|number.
@@ -10,6 +10,8 @@ The tools library, now is support date|object|number.
 ```
 npm install --save lego-tools
 ```
+## new version
+[0.1.1] add sort function. `LT.obj.sort([{age:1}, {age:2}], 'age:desc') => [{age:2}, {age:1}]`
 
 ## Usage
 ### #num
@@ -51,6 +53,14 @@ npm install --save lego-tools
 * params: date | keyStr: 'detail.name.version' | value
 * return: target object
 * example: `LT.obj.deepSet({detail: {name: 'Tom'}}, 'detail.age', 10) => {detail: {name: 'Tom', age: 10}}`
+---
+<br>
+
+#### sort array
+* function: `sort(data:array, express)`
+* params: date | keyStr: 'desc/asc' or 'detail.intro.age:desc/asc'
+* return: data
+* example: `LT.obj.sort([{age:1}, {age:2}], 'age:desc') => [{age:2}, {age:1}]`
 ---
 <br>
 

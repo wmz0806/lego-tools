@@ -3,7 +3,7 @@ const num = require('../num')
 
 describe('obj', () => {
     it('numbers compute', () => {
-        expect(num.compute('39.9*3/2+10-3*2')).to.be.equal('63.85')
+        expect(num.compute('39.9*3/2+10-3*2')).to.be.equal(63.85)
     })
 
     it('format number round Number', () => {
