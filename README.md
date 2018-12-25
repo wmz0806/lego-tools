@@ -13,67 +13,83 @@ npm install --save lego-tools
 
 ## Usage
 ### #num
-* use: support js to compute the times,div,plus,minus
-* function: compute(computeStr:string)
-* params: `computeStr - like -> (2+5)\*3+(39.9\*3)\2 -> 80.85`
+#### support js to compute the times,div,plus,minus
+* function: `compute(computeStr:string)`
+* params: computeStr - like -> (2+5)\*3+(39.9\*3)\2 -> 80.85
 * return: number
 * example: `LT.num.compute('(2+5)\*3+(39.9\*3)\2')`
 ---
-* use: format the num like round,ceil,floor
-* function: format(num:string|number, targetFormat:string, type:string)
-* params: `num:12.34,'12.34' | targetFormat:'.','.0','.00'... and more | type:'round','ceil','floor'`
+<br>
+
+#### format the num like round,ceil,floor
+* function: `format(num:string|number, targetFormat:string, type:string)`
+* params: num:12.34,'12.34' | targetFormat:'.','.0','.00'... and more | type:'round','ceil','floor'
 * return: source num type
 * example: `LT.num.format(12.34, '.0', 'round') => 12.3`
 ---
-* use: format the num like money show
-* function: formatMoney(num:string|number, targetFormat:string(NULL), type:string(NULL))
-* params: `num:1234.34,'1234.34' | targetFormat:'.','.0','.00'... and more | type:'round','ceil','floor'`
+<br>
+
+#### format the num like money show
+* function: `formatMoney(num:string|number, targetFormat:string(NULL), type:string(NULL))`
+* params: num:1234.34,'1234.34' | targetFormat:'.','.0','.00'... and more | type:'round','ceil','floor'
 * return: string
 * example: `LT.num.formatMoney(1234.34) => 1,234.34`
 ---
+<br>
 
 ### #obj
-* use: get value or list from object/array
-* function: deepGet(data:object|array, keyStr)
-* params: `data | keyStr:object -> 'detail.name.version' / array -> 'detail.age>5&sex="man"'`
+#### get value or list from object/array
+* function: `deepGet(data:object|array, keyStr)`
+* params: data | keyStr:object -> 'detail.name.version' / array -> 'detail.age>5&sex="man"'
 * return: target vlaue/array
 * example: `LT.obj.deepGet({detail: {name: 'Tom'}}, 'detail.name') => Tom`
 ---
-* use: set the target object
-* function: deepSet(data:object, keyStr, vlaue:any)
-* params: `date | keyStr: 'detail.name.version' | value
+<br>
+
+#### set the target object
+* function: `deepSet(data:object, keyStr, vlaue:any)`
+* params: date | keyStr: 'detail.name.version' | value
 * return: target object
 * example: `LT.obj.deepSet({detail: {name: 'Tom'}}, 'detail.age', 10) => {detail: {name: 'Tom', age: 10}}`
 ---
+<br>
 
-### #date
-* use: get current date
-* function: now(targetFormat(NULL))
-* params: `targetFormat:yyyy-MM-dd HH:mm:ss`
+#### #date
+##### get current date
+* function: `now(targetFormat(NULL))`
+* params: targetFormat:yyyy-MM-dd HH:mm:ss
 * return: date|string
 * example: `LT.date.now() => Date; LT.date.now('yyyy-MM-dd') => 2018-12-20`
 ---
-* use: format target date/dateStr
-* function: format(date:string|date, targetFormat)
-* params: `targetFormat:yyyy-MM-dd HH:mm:ss`
+<br>
+
+#### format target date/dateStr
+* function: `format(date:string|date, targetFormat)`
+* params: targetFormat:yyyy-MM-dd HH:mm:ss
 * return: string
 * example: `LT.date.format(new Date()|'2018-12-20 13:59:30', 'yyyy-MM-dd') //=> 2018-12-20`
 ---
-* use: add years,months,days,hours,minutes,second to date
-* function: add(date:string|date, num:number, type:string, targetFormat:string)
-* params: `type:years,months,days,hours,minutes,second | targetFormat:yyyy-MM-dd HH:mm:ss`
+<br>
+
+#### add years,months,days,hours,minutes,second to date
+* function: `add(date:string|date, num:number, type:string, targetFormat:string)`
+* params: type:years,months,days,hours,minutes,second | targetFormat:yyyy-MM-dd HH:mm:ss
 * return: source date type
 * example: `LT.date.add('2018-12-20 12:29:30'|new Date(), 1, 'months', 'yyyy-MM-dd HH:mm:ss') => 2019-01-20 12:29:30`
 ---
-* use: subtract years,months,days,hours,minutes,second from date
-* function: subtract(date:string|date, num:number, type:string, targetFormat:string(NULL))
-* params: `type:years,months,days,hours,minutes,second | targetFormat:yyyy-MM-dd HH:mm:ss`
+<br>
+
+#### subtract years,months,days,hours,minutes,second from date
+* function: `subtract(date:string|date, num:number, type:string, targetFormat:string(NULL))`
+* params: type:years,months,days,hours,minutes,second | targetFormat:yyyy-MM-dd HH:mm:ss
 * return: source date type
 * example: `LT.date.subtract('2018-12-20 12:29:30'|new Date(), 1, 'months', 'yyyy-MM-dd HH:mm:ss') => 2018-11-20 12:29:30`
 ---
-* use: diff two date
-* function: diff(date:string|date, date:string|date)
-* params: `date`
+<br>
+
+#### diff two date
+* function: `diff(date:string|date, date:string|date)`
+* params: date
 * return: object - {days: number, hours: number, minutes: number, seconds: number}
 * example: `LT.date.diff('2018-12-20 12:29:30', '2018-12-18 12:29:30') => {days: 2, hours: 0, minutes: 0, seconds: 0}`
 ---
@@ -81,6 +97,6 @@ npm install --save lego-tools
 use in code:
 ```
 const LT = require('lego-tools')//OR lego-tools/date
-//todao
+//todo
 ...
 ```
