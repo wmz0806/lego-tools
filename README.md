@@ -13,7 +13,7 @@ npm install --save lego-tools
 ## new version
 [0.1.2] add repeat and diff function to obj (high performance)
 ```
-LT.obj.repeat([1, '1', 1, 2]) => [1, '1', 2]
+LT.obj.repeat([1, '1', 1, 2]) => [1, '1', 2] // array length is 1000000 only use 296ms (in mac)
 LT.obj.repeat([{age: 1}, {age: 1}], 'age') => [{age: 1}]
 
 let source2 = {age: 5, name: 'Ken'}
