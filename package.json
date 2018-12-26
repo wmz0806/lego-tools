@@ -1,11 +1,11 @@
 {
   "name": "lego-tools",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "use tools like lego.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "parcel build index.js -d dist/0.1.1/ --out-file lego-tools.min.js"
+    "build": "parcel build index.js -d dist/0.1.2/ --out-file lego-tools.min.js"
   },
   "repository": {
     "type": "git",

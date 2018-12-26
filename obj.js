@@ -105,9 +105,98 @@ const sort = (data, express) => {
     return data
 }
 
+/**
+ * filter array repeat element is high performance 
+ * @param {Array} data 
+ * @param {string} express - (NULL) default is NULL, use to object in array like [{age:1}, {age:1}] => 'age' OR deepKey 'age.name..' and more.
+ */
+const repeat = (data, express) => {
+    let tmp = {}
+    let backTmp = {}
+    let tmpList = []
+    let recordItem = (key, item) => {
+        let newKey = key + ''
+        if(!tmp[newKey]) {
+            tmpList.push(item)
+            tmp[newKey] = key
+        }else if(tmp[newKey] !== key && !backTmp[newKey]) {
+            tmpList.push(item)
+            backTmp[newKey] = key
+        }
+    }
+    if(express) data.forEach(item => { recordItem(deepGet(item, express), item) })
+    else data.forEach(item => { recordItem(item, item) })
+    return tmpList
+}
+
+/**
+ * diff two object or array
+ * @param {Object.<string,object>} source
+ * @param {Object.<string,object>} target
+ * @return {*} {add, update: {source, target}, delete, keep, is_equal} if source equal target will return only false.
+ */
+const diff = (source, target) => {
+    let result = {
+        add: null,
+        update: null,
+        delete: null,
+        keep: null,
+    }
+    let setValue = (type, key, value) => {
+        if(!result[type]) result[type] = {}
+        result[type][key] = value
+    }
+
+    let compare = (a, b) => {
+        let typeA = a instanceof Object
+        let typeB = b instanceof Object
+
+        if(!typeA || !typeB) return a === b
+        if(Object.keys(a).length !== Object.keys(b).length) return false
+
+        for(let key in a) {
+            let itemA = a[key]
+            let itemB = b[key]
+            let tmpA = itemA instanceof Object
+            let tmpB = itemB instanceof Object
+            if(tmpA && tmpB) return compare(itemA, itemB)
+            else if(itemA !== itemB) return false
+        }
+        return true
+    }
+
+    let start = (sourceObj, targetObj) => {
+        for(let key in sourceObj) {
+            let sourceItem = sourceObj[key]
+            let targetItem = target[key]
+    
+            if(targetItem) {//exist
+                if(compare(sourceItem, targetItem)) {
+                    setValue('keep', key, sourceItem)
+                }else{
+                    if(!result.update) result.update = {source: {}, target: {}}
+                    result.update.source[key] = sourceItem
+                    result.update.target[key] = targetItem
+                }
+            }else {//not exist
+                setValue('delete', key, sourceItem)
+            }
+        }
+        for(let key in targetObj) {
+            if(!sourceObj[key]) setValue('add', key, targetObj[key])
+        }
+    }
+    start(source, target)
+    if(!result.add && !result.update && !result.delete) return false
+
+    return result
+}
+
 module.exports = {
     copy,
     deepGet,
     deepSet,
     sort,
+    repeat,
+    diff,
 }

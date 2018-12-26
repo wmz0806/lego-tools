@@ -36,4 +36,41 @@ describe('obj', () => {
         data = obj.sort(data, 'age:desc')
         expect(data[0].age).to.be.equal(7)
     })
+
+    it('repeat array<object>', () => {
+        let data = [{age:1}, {age:7}, {age:3}, {age:1}]
+        data = obj.repeat(data, 'age')
+        expect(data.length).to.be.equal(3)
+    })
+
+    it('repeat array<number>', () => {
+        let data = [1, 1, 3, 4, 4]
+        data = obj.repeat(data)
+        expect(data.length).to.be.equal(3)
+    })
+
+    it('repeat array<string>', () => {
+        let data = [1, '1', 1, '3', '4', '4']
+        data = obj.repeat(data)
+        expect(data.length).to.be.equal(4)
+    })
+
+    it('diff two obj', () => {
+        let source = {age: 5, name: 'Ken', address: 'test'}
+        let target = {age: 5, name: 'Tom', fav: 'book'}
+        let data = obj.diff(source, target)
+
+        expect(data.add.fav).to.be.equal('book')
+        expect(data.delete.address).to.be.equal('test')
+        expect(data.keep.age).to.be.equal(5)
+        expect(data.update.source.name).to.be.equal('Ken')
+        expect(data.update.target.name).to.be.equal('Tom')
+    })
+
+    it('diff two equal obj', () => {
+        let source = {age: 5, name: 'Ken'}
+        let target = {age: 5, name: 'Ken'}
+        let data = obj.diff(source, target)
+        expect(data).to.be.false
+    })
 })

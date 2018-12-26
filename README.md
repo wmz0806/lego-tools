@@ -1,5 +1,5 @@
 # lego-tools
-![npm version](https://img.shields.io/badge/npm-v0.1.1-green.svg)
+![npm version](https://img.shields.io/badge/npm-v0.1.2-green.svg)
 ![build status](https://img.shields.io/badge/build-passing-brightgreen.svg)
 ![coverage](https://img.shields.io/badge/coverage-95%25-yellowgreen.svg)
 ![license](https://img.shields.io/badge/license-MIT-green.svg)
@@ -11,15 +11,32 @@ The tools library, now is support date|object|number.
 npm install --save lego-tools
 ```
 ## new version
-[0.1.1] add sort function. `LT.obj.sort([{age:1}, {age:2}], 'age:desc') => [{age:2}, {age:1}]`
+[0.1.2] add repeat and diff function to obj (high performance)
+```
+LT.obj.repeat([1, '1', 1, 2]) => [1, '1', 2]
+LT.obj.repeat([{age: 1}, {age: 1}], 'age') => [{age: 1}]
 
+let source2 = {age: 5, name: 'Ken'}
+let target2 = {age: 5, name: 'Ken',}
+LT.obj.diff(source, target) => false
+
+let source = {age: 5, name: 'Ken', address: 'test'}
+let target = {age: 5, name: 'Tom', fav: 'book'}
+LT.obj.diff(source, target) => {add: {fav: 'book}, delete: {address: 'test'}, keep: {age: 5}, update: {source: {name: 'Ken'}, target: {name: 'Tome'}}}
+```
+---
+[0.1.1] add sort function to obj
+```
+LT.obj.sort([{age:1}, {age:2}], 'age:desc') => [{age:2}, {age:1}]
+```
+---
 ## Usage
 ### #num
 #### support js to compute the times,div,plus,minus
 * function: `compute(computeStr:string)`
 * params: computeStr - like -> (2+5)\*3+(39.9\*3)\2 -> 80.85
 * return: number
-* example: `LT.num.compute('(2+5)\*3+(39.9\*3)\2')`
+* example: `LT.num.compute('(2+5)*3+(39.9*3)\2')`
 ---
 <br>
 
