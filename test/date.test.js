@@ -1,5 +1,5 @@
 const expect = require('chai').expect
-const date = require('../date')
+const { date } = require('../')
 
 describe('now date', () => {
     it('empty format', () => {

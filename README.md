@@ -1,5 +1,5 @@
 # lego-tools
-![npm version](https://img.shields.io/badge/npm-v0.1.2-green.svg)
+![npm version](https://img.shields.io/badge/npm-v0.1.3-green.svg)
 ![build status](https://img.shields.io/badge/build-passing-brightgreen.svg)
 ![coverage](https://img.shields.io/badge/coverage-95%25-yellowgreen.svg)
 ![license](https://img.shields.io/badge/license-MIT-green.svg)

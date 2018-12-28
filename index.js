@@ -1,6 +1,6 @@
-const date = require('./date')//12kb
-const obj = require('./obj')//11kb
-const num = require('./num')//13kb
+const date = require('./src/base/date')
+const obj = require('./src/base/obj')
+const num = require('./src/base/num')
 
 module.exports = {
     date,

@@ -1,5 +1,5 @@
 const expect = require('chai').expect
-const num = require('../num')
+const { num } = require('../')
 
 describe('obj', () => {
     it('numbers compute', () => {

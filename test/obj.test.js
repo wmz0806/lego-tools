@@ -1,5 +1,5 @@
 const expect = require('chai').expect
-const obj = require('../obj')
+const { obj } = require('../')
 
 describe('obj', () => {
     it('deepGet for obj', () => {
