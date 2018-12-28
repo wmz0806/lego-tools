@@ -10,6 +10,10 @@ The tools library, now is support date|object|number.
 ```
 npm install --save lego-tools
 ```
+
+## example
+![demo](https://upload-images.jianshu.io/upload_images/7122737-20657cfe4baa2b21.png)
+
 ## new version
 [0.1.2] add repeat and diff function to obj (high performance)
 ```
