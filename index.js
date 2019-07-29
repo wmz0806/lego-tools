@@ -1,9 +1,13 @@
-const date = require('./src/base/date')
-const obj = require('./src/base/obj')
-const num = require('./src/base/num')
+"use strict";
+
+var date = require('./lib/base/date');
+
+var obj = require('./lib/base/obj');
+
+var num = require('./lib/base/num');
 
 module.exports = {
-    date,
-    obj,
-    num,
-}
+    date: date,
+    obj: obj,
+    num: num
+};
